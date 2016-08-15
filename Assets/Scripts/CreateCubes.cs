@@ -1,22 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Random = System.Random;
-
 public class CreateCubes : MonoBehaviour {
 
-	private Random random = new Random ();
-	private GameObject randomCube = (GameObject)Instantiate(Resources.Load("RandomCube"));
+	public GameObject[] randomCubes;
+	public Vector3 spawnValues;
+	public float spawnDelay;
+	public float spawnMaxDelay;
+	public float spawnMinDelay;
 
-	// Use this for initialization
+	public int startWait;
+	public bool stop;
+
+	private int randomCube;
+
 	void Start () {
-		for (int i = 0; i < 5; i++) {
-			Instantiate(randomCube);
-		}
+		StartCoroutine (waitSpawner ());
 	}
 	
-	// Update is called once per frame
 	void Update () {
-	
+		spawnDelay = Random.Range (spawnMinDelay, spawnMaxDelay);
+	}
+
+	IEnumerator waitSpawner() {
+		yield return new WaitForSeconds (startWait);
+
+		while (!stop) {
+			randomCube = Random.Range (0, 2);
+
+			Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x/2, spawnValues.x/2), 1, Random.Range(-spawnValues.z/2, spawnValues.z/2));
+
+			Instantiate (randomCubes [randomCube], spawnPosition + transform.TransformPoint (0, 0, 0), gameObject.transform.rotation);
+
+			yield return new WaitForSeconds (spawnDelay);
+		}
 	}
 }
