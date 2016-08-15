@@ -6,7 +6,7 @@ public class ColorRandomizer : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		//Create random color
-		Color col1 = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), 1.0f);
+		/*Color col1 = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), 1.0f);
 		//Find mesh from game objects
 		Mesh mesh1 = GetComponent<MeshFilter>().mesh;
 		//Change colors of meshes
@@ -16,6 +16,9 @@ public class ColorRandomizer : MonoBehaviour {
 			colors[i] = col1;
 		}
 		mesh1.colors = colors; //Set new colors of vertices
+		*/
+		Color randomColor = new Color (Random.value, Random.value, Random.value, Random.value);
+		GetComponent<Renderer>().material.color = randomColor;
 	}
 	
 	// Update is called once per frame
